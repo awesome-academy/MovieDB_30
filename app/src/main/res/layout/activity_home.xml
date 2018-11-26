@@ -9,7 +9,7 @@
     >
   <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       >
     <ViewFlipper
         android:id="@+id/view_flipper"
@@ -37,8 +37,8 @@
         android:id="@+id/image_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/content_margin"
-        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginStart="@dimen/margin_all_content"
+        android:layout_marginTop="@dimen/margin_all_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_menu_button"
@@ -47,8 +47,8 @@
         android:id="@+id/image_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/content_margin"
-        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginEnd="@dimen/margin_all_content"
+        android:layout_marginTop="@dimen/margin_all_content"
         app:layout_constraintEnd_toStartOf="@+id/image_favorite"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_search_button"
@@ -57,8 +57,8 @@
         android:id="@+id/image_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/content_margin"
-        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginEnd="@dimen/margin_all_content"
+        android:layout_marginTop="@dimen/margin_all_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_favorite_button"

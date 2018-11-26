@@ -17,12 +17,15 @@ import com.framgia.moviedb.utils.APIUtils;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+    public static final int SIZE_IMAGE = 500;
     private List<Movie> mMovies;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
+    private OnItemClickListener mListener;
 
-    public MovieAdapter(Context context) {
+    public MovieAdapter(Context context, OnItemClickListener listener) {
         mContext = context;
+        mListener = listener;
     }
 
     public void setMovieData(List<Movie> movies) {
@@ -34,12 +37,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
         if (mLayoutInflater == null) {
             mLayoutInflater = LayoutInflater.from(mContext);
         }
         View view = mLayoutInflater.inflate(R.layout.item_movie, viewGroup, false);
-        return new ViewHolder(mContext, view);
+        return new ViewHolder(mContext, view, mListener);
     }
 
     @Override
@@ -52,28 +55,46 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         return mMovies != null ? mMovies.size() : 0;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mImageView;
         private Context mContext;
+        private OnItemClickListener mListener;
+        private Movie mMovie;
 
-        public ViewHolder(Context context, @NonNull View itemView) {
+        public ViewHolder(Context context, @NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             mContext = context;
+            mListener = listener;
             mImageView = itemView.findViewById(R.id.image_movie);
+            mImageView.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            if (mListener == null) {
+                return;
+            }
+            mListener.onItemClick(mMovie);
         }
 
         public void bindData(Movie movie) {
             if (movie == null) {
                 return;
             }
+            mMovie = movie;
             String url = APIUtils.PRE_POSTER_URL + movie.getPosterPath();
             GlideApp.with(mContext)
                     .load(url)
                     .apply(new RequestOptions()
                             .placeholder(R.drawable.ic_loading_icon)
                             .error(R.drawable.ic_error_icon)
-                            .override(700, 300))
+                            .override(SIZE_IMAGE))
                     .into(mImageView);
         }
+    }
+
+    interface OnItemClickListener {
+        void onItemClick(Movie movie);
     }
 }

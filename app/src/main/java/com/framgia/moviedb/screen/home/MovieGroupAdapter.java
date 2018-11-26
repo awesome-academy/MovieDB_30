@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.framgia.moviedb.R;
 import com.framgia.moviedb.data.model.GroupMovie;
+import com.framgia.moviedb.data.model.Movie;
+import com.framgia.moviedb.screen.movie_detail.MovieDetailActivity;
 
 import java.util.List;
 
@@ -18,11 +20,13 @@ public class MovieGroupAdapter
         extends RecyclerView.Adapter<MovieGroupAdapter.ViewHolder> {
     private final Context mContext;
     private List<GroupMovie> mGroupMovies;
+    private OnGroupItemClickListener mListener;
 
-    public MovieGroupAdapter(Context context, List<GroupMovie> list) {
+    public MovieGroupAdapter(Context context, List<GroupMovie> list, OnGroupItemClickListener listener) {
         if (list != null) {
             mGroupMovies = list;
         }
+        mListener = listener;
         mContext = context;
     }
 
@@ -32,7 +36,7 @@ public class MovieGroupAdapter
                                                                    ViewGroup viewGroup, int position) {
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.item_group_movie, viewGroup, false);
-        return new MovieGroupAdapter.ViewHolder(view);
+        return new MovieGroupAdapter.ViewHolder(view, mListener);
     }
 
     @Override
@@ -46,26 +50,51 @@ public class MovieGroupAdapter
         return mGroupMovies != null ? mGroupMovies.size() : 0;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, MovieAdapter.OnItemClickListener {
         private final RecyclerView mRecyclerView;
         private TextView mTextGroupLabel;
         private MovieAdapter mMovieAdapter;
+        private OnGroupItemClickListener mOnGroupItemClick;
+        private Context mContext;
+        private int mGroupId;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnGroupItemClickListener listener) {
             super(itemView);
-            Context context = itemView.getContext();
+            mContext = itemView.getContext();
+            mOnGroupItemClick = listener;
             mTextGroupLabel = itemView.findViewById(R.id.text_label_group);
             mRecyclerView = itemView.findViewById(R.id.recycle_movie);
             mRecyclerView.setLayoutManager(
-                    new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                    new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             mRecyclerView.setHasFixedSize(true);
-            mMovieAdapter = new MovieAdapter(context);
+            mMovieAdapter = new MovieAdapter(mContext, this);
             mRecyclerView.setAdapter(mMovieAdapter);
+            mTextGroupLabel.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.text_label_group:
+                    mOnGroupItemClick.onItemClick(mGroupId);
+                    break;
+            }
+        }
+
+        @Override
+        public void onItemClick(Movie movie) {
+            mContext.startActivity(MovieDetailActivity.getIntent(mContext, movie));
         }
 
         public void bindData(GroupMovie groupMovie) {
             mTextGroupLabel.setText(groupMovie.getTitle());
             mMovieAdapter.setMovieData(groupMovie.getMovies());
+            mGroupId = groupMovie.getId();
         }
     }
+
+    interface OnGroupItemClickListener {
+        void onItemClick(int groupId);
+    }
+
 }

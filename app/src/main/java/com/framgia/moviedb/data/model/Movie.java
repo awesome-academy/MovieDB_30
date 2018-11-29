@@ -1,12 +1,16 @@
 package com.framgia.moviedb.data.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Movie {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Movie implements Parcelable {
     private String mTitle;
     private long mVoteAverage;
     private String mId;
@@ -30,6 +34,28 @@ public class Movie {
             }
         }
     }
+
+    protected Movie(Parcel in) {
+        mTitle = in.readString();
+        mVoteAverage = in.readLong();
+        mId = in.readString();
+        mPosterPath = in.readString();
+        mBackdropPath = in.readString();
+        mOverview = in.readString();
+        mGenres = in.createStringArrayList();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getTitle() {
         return mTitle;
@@ -85,6 +111,22 @@ public class Movie {
 
     public void setGenres(List<String> genres) {
         mGenres = genres;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTitle);
+        dest.writeLong(mVoteAverage);
+        dest.writeString(mId);
+        dest.writeString(mPosterPath);
+        dest.writeString(mBackdropPath);
+        dest.writeString(mOverview);
+        dest.writeStringList(mGenres);
     }
 
     public static class MovieJsonKey {

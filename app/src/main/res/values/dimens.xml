@@ -9,4 +9,5 @@
     <dimen name="high_more_icon">12dp</dimen>
     <dimen name="margin_start_more_icon">4dp</dimen>
     <dimen name="margin_top_more_icon">12dp</dimen>
+    <dimen name="dp_0">0dp</dimen>
 </resources>

@@ -1,5 +1,5 @@
 package com.framgia.moviedb.utils;
 
-public class Method {
+public class MethodUtils {
     public static final String METHOD_GET = "GET";
 }

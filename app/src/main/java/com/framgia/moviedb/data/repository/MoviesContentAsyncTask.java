@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MoviesContentAsyncTask extends AsyncTask<String, Void, List<GroupMovie>> {
     private static final int LIMIT_IMAGE_VIEW_FLIPPER = 5;
     private MoviesDataSource.LoadMoviesCallback mCallback;
@@ -34,7 +35,7 @@ public class MoviesContentAsyncTask extends AsyncTask<String, Void, List<GroupMo
                 String json = moviesFetchData.getMovies(strings[i]);
                 movies = getMovies(json);
                 groupMovies.add(
-                        new GroupMovie(Constants.GROUP_TITLES[i], String.valueOf(i), movies));
+                        new GroupMovie(Constants.GROUP_TITLES[i], i, movies));
             } catch (IOException e) {
                 mException = e;
             } catch (JSONException e) {

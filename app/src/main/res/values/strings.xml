@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">MovieDB</string>
     <string name="error_show_image_home">Fail to load movies. Please check your connection!</string>
-    <string name="favorite_title_menu">Favorite</string>
-    <string name="search_title_menu">Search</string>
+    <string name="title_favorite_menu">Favorite</string>
+    <string name="title_search_menu">Search</string>
+    <string name="label_director">Director:</string>
+    <string name="label_actors">Actors:</string>
+    <string name="text_add_to_favorite">Add to Favorite</string>
+    <string name="text_related">RELATED</string>
 </resources>

@@ -35,8 +35,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private static final int PERIOD_TIME = 2000;
     private static final int ID_NAVIGATION_ICON = -1;
     private static final int DELAY_TIME = 2000;
-
-    private MovieGroupAdapter mGroupAdapter;
+    private int mCurrentPage = 0;
     private HomePresenter mPresenter;
     private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
@@ -44,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private DrawerLayout mDrawerLayout;
     private ViewPager mViewPager;
     private ImagePagerAdapter mPagerAdapter;
+    private MovieGroupAdapter mGroupAdapter;
     private TabLayout mTabLayout;
 
     @Override
@@ -93,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         mPagerAdapter = new ImagePagerAdapter(this, movies, this);
         mViewPager.setAdapter(mPagerAdapter);
         mPagerAdapter.notifyDataSetChanged();
-        autoSlide(movies.size());
+        autoSwipe(movies.size());
     }
 
 
@@ -127,8 +127,8 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         mToolbar = findViewById(R.id.toolbar);
         mNavigationView = findViewById(R.id.navigation);
         mViewPager = findViewById(R.id.view_pager);
-        mTabLayout = findViewById(R.id.tab_layout);
-        mTabLayout.setupWithViewPager(mViewPager, true);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(mViewPager, true);
     }
 
     private void loadMovieGroup() {
@@ -144,17 +144,14 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         mToolbar.setNavigationOnClickListener(this);
     }
 
-    private void autoSlide(final int size) {
+    private void autoSwipe(final int size) {
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
-                int currentPage = 0;
-                mViewPager.setCurrentItem((currentPage++) % size, true);
+                mViewPager.setCurrentItem((mCurrentPage++) % size, true);
             }
         };
         Timer swipeTimer = new Timer();
-
-
         swipeTimer.schedule(new TimerTask() {
             @Override
             public void run() {

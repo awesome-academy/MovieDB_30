@@ -24,7 +24,7 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onMoviesLoaded(List<GroupMovie> groupMovies, List<Movie> movies) {
                 mView.showMovies(groupMovies);
-                mView.showViewFlipper(movies);
+                mView.showSliderPager(movies);
             }
 
             @Override

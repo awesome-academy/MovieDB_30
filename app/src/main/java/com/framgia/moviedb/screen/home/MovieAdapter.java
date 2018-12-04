@@ -69,15 +69,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             mImageView.setOnClickListener(this);
         }
 
-
-        @Override
-        public void onClick(View v) {
-            if (mListener == null) {
-                return;
-            }
-            mListener.onItemClick(mMovie);
-        }
-
         public void bindData(Movie movie) {
             if (movie == null) {
                 return;
@@ -91,6 +82,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                             .error(R.drawable.ic_error_icon)
                             .override(SIZE_IMAGE))
                     .into(mImageView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener != null) {
+                mListener.onItemClick(mMovie);
+            }
         }
     }
 

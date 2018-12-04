@@ -11,9 +11,9 @@ public interface HomeContract {
 
         void showMoviesError(Exception e);
 
-        void showViewFlipper(List<Movie> movies);
+        void showSliderPager(List<Movie> movies);
 
-        void showViewFlipperError(Exception e);
+        void showSliderPagerError(Exception e);
 
     }
 

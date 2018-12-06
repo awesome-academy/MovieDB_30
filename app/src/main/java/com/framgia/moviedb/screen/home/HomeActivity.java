@@ -30,8 +30,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeActivity extends AppCompatActivity implements HomeContract.View,
-        MovieGroupAdapter.OnGroupItemClickListener, View.OnClickListener, ImagePagerAdapter.OnPagerClickListener {
+public class HomeActivity extends AppCompatActivity
+        implements HomeContract.View,
+        MovieGroupAdapter.OnGroupItemClickListener,
+        View.OnClickListener,
+        ImagePagerAdapter.OnPagerClickListener {
     private static final int PERIOD_TIME = 2000;
     private static final int ID_NAVIGATION_ICON = -1;
     private static final int DELAY_TIME = 2000;

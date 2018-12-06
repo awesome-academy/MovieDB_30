@@ -31,5 +31,6 @@ public class Crew extends Person {
 
     public static class CrewJsonKey {
         public static final String JSON_KEY_CREW = "crew";
+        public static final String JSON_KEY_DIRECTOR = "Director";
     }
 }

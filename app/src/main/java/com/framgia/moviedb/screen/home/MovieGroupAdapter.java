@@ -87,7 +87,7 @@ public class MovieGroupAdapter
             mContext.startActivity(MovieDetailActivity.getIntent(mContext, movie));
         }
 
-        public void bindData(GroupMovie groupMovie) {
+        private void bindData(GroupMovie groupMovie) {
             mTextGroupLabel.setText(groupMovie.getTitle());
             mMovieAdapter.setMovieData(groupMovie.getMovies());
             mGroupId = groupMovie.getId();

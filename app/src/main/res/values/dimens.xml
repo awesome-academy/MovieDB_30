@@ -21,4 +21,9 @@
     <dimen name="high_icon_add">36dp</dimen>
     <dimen name="width_icon_play">56dp</dimen>
     <dimen name="high_icon_play">38dp</dimen>
+    <dimen name="size_title_toolbar">20dp</dimen>
+    <dimen name="margin_top_panel">16dp</dimen>
+    <dimen name="margin_left_panel">16dp</dimen>
+    <dimen name="width_image_profile">120dp</dimen>
+    <dimen name="high_image_profile">180dp</dimen>
 </resources>

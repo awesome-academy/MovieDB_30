@@ -55,31 +55,27 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
                 genresName.length() - STRING_SEPARATOR.length());
     }
 
-    private String getDirectorName(MovieDetail movieDetail) {
-        String directorName = null;
+    private Crew getDirectorName(MovieDetail movieDetail) {
+        Crew crew = new Crew();
         for (int i = 0; i < movieDetail.getPeople().size(); i++) {
             if (movieDetail.getPeople().get(i) instanceof Crew
                     && ((Crew) movieDetail
                     .getPeople().get(i)).getJob()
                     .equals(Crew.CrewJsonKey.JSON_KEY_DIRECTOR)) {
-                directorName = movieDetail.getPeople().get(i).getName();
+               crew = (Crew) movieDetail.getPeople().get(i);
                 break;
             }
         }
-        return directorName;
+        return crew;
     }
 
-    private String getActorsName(MovieDetail movieDetail) {
-        StringBuilder builder = new StringBuilder();
+    private List<Cast> getActorsName(MovieDetail movieDetail) {
         List<Cast> casts = new ArrayList<>();
         for (int i = 0; i < movieDetail.getPeople().size(); i++) {
             if (movieDetail.getPeople().get(i) instanceof Cast) {
                 casts.add((Cast) movieDetail.getPeople().get(i));
             }
         }
-        builder.append(casts.get(FIRST_PERSON_POSITION).getName())
-                .append(STRING_SEPARATOR)
-                .append(casts.get(SECOND_PERSON_POSITION).getName());
-        return builder.toString();
+        return casts;
     }
 }

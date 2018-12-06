@@ -62,7 +62,7 @@ public class APIUtils {
     public static String getRelatedMovieUrl(String movieId, int page) {
         StringBuilder api = new StringBuilder();
         api.append(PRE_GET_MOVIES_URL).append(movieId)
-                .append(RELATED_TYPE)
+                .append(GET_RELATED_TYPE)
                 .append(API_KEY_CONFIGURATION)
                 .append(API_KEY)
                 .append(LANGUAGE_CONFIGURATION)

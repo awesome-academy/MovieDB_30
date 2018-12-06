@@ -10,6 +10,9 @@ public class Person {
     private String mProfilePath;
     private int mGender;
 
+    public Person() {
+    }
+
     public Person(JSONObject item) throws JSONException {
         mId = item.getInt(PersonJsonKey.ID);
         mName = item.getString(PersonJsonKey.NAME);

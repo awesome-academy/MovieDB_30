@@ -18,7 +18,7 @@
         android:layout_width="@dimen/width_more_icon"
         android:layout_height="@dimen/high_more_icon"
         android:layout_marginStart="@dimen/margin_start_more_icon"
-        android:layout_marginTop="@dimen/margin_top_more_icon"
+        android:layout_marginTop="@dimen/margin_bottom_more_icon"
         app:layout_constraintStart_toEndOf="@+id/text_label_group"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_more_icon" />

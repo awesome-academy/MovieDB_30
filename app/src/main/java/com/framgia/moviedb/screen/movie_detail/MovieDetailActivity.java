@@ -3,7 +3,6 @@ package com.framgia.moviedb.screen.movie_detail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +20,6 @@ import com.framgia.moviedb.data.model.Movie;
 import com.framgia.moviedb.data.repository.MoviesRepository;
 import com.framgia.moviedb.data.source.remote.MovieRemoteDataSource;
 import com.framgia.moviedb.utils.APIUtils;
-import com.google.android.youtube.player.YouTubePlayer;
 
 import java.util.List;
 
@@ -73,7 +71,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image_play_icon:
-                startActivity(PlayTrailerActivity.getIntent(this, mTrailerKey));
+                startActivity(TrailerActivity.getIntent(this, mTrailerKey));
                 break;
         }
     }

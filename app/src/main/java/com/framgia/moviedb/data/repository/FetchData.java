@@ -8,12 +8,12 @@ import java.net.URL;
 
 import static com.framgia.moviedb.utils.MethodUtils.METHOD_GET;
 
-public class MoviesFetchData {
+public class FetchData {
 
-    public String getMovies(String path) throws Exception {
+    public String getJsonData(String path) throws Exception {
         HttpURLConnection urlConnection;
         BufferedReader reader;
-        String movieJsonString;
+        String jsonString;
         URL url = new URL(path);
         urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod(METHOD_GET);
@@ -28,13 +28,13 @@ public class MoviesFetchData {
         if (builder.length() == 0) {
             return null;
         }
-        movieJsonString = builder.toString();
+        jsonString = builder.toString();
         if (urlConnection != null) {
             urlConnection.disconnect();
         }
         if (reader != null) {
             reader.close();
         }
-        return movieJsonString;
+        return jsonString;
     }
 }

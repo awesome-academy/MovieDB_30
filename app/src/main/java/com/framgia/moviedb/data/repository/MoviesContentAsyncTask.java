@@ -28,11 +28,11 @@ public class MoviesContentAsyncTask extends AsyncTask<String, Void, List<GroupMo
     @Override
     protected List<GroupMovie> doInBackground(String... strings) {
         List<GroupMovie> groupMovies = new ArrayList<>();
-        MoviesFetchData moviesFetchData = new MoviesFetchData();
+        FetchData fetchData = new FetchData();
         for (int i = 0; i < strings.length; i++) {
             try {
                 List<Movie> movies;
-                String json = moviesFetchData.getMovies(strings[i]);
+                String json = fetchData.getJsonData(strings[i]);
                 movies = getMovies(json);
                 groupMovies.add(
                         new GroupMovie(Constants.GROUP_TITLES[i], i, movies));
@@ -75,7 +75,7 @@ public class MoviesContentAsyncTask extends AsyncTask<String, Void, List<GroupMo
         List<Movie> movies = new ArrayList<>();
         JSONObject jsonObject = new JSONObject(json);
         if (jsonObject != null) {
-            JSONArray jsonMovies = jsonObject.getJSONArray("results");
+            JSONArray jsonMovies = jsonObject.getJSONArray(Constants.JSON_KEY_RESULTS);
             for (int j = 0; j < jsonMovies.length(); j++) {
                 JSONObject item = jsonMovies.getJSONObject(j);
                 if (item != null) {

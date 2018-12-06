@@ -1,12 +1,13 @@
 package com.framgia.moviedb.data.source.remote;
 
+import com.framgia.moviedb.data.repository.MovieDetailAsyncTask;
 import com.framgia.moviedb.data.repository.MoviesContentAsyncTask;
 import com.framgia.moviedb.data.source.MoviesDataSource;
 import com.framgia.moviedb.utils.APIUtils;
 import com.framgia.moviedb.utils.Constants;
 
 public class MovieRemoteDataSource implements MoviesDataSource {
-
+    public static final int FIST_PAGE_NUMBER = 1;
     private static MovieRemoteDataSource sMovieRemoteDataSource;
 
     private MovieRemoteDataSource() {
@@ -19,15 +20,17 @@ public class MovieRemoteDataSource implements MoviesDataSource {
         return sMovieRemoteDataSource;
     }
 
-    @Override public void getMovies(LoadMoviesCallback loadMoviesCallback) {
+    @Override
+    public void getMovies(LoadMoviesCallback loadMoviesCallback) {
         String[] apis = new String[Constants.GROUP_NAMES.length];
         for (int i = 0; i < Constants.GROUP_NAMES.length; i++) {
-            apis[i] = APIUtils.getApiUrl(Constants.GROUP_NAMES[i], 1);
+            apis[i] = APIUtils.getApiUrl(Constants.GROUP_NAMES[i], FIST_PAGE_NUMBER);
         }
         new MoviesContentAsyncTask(loadMoviesCallback).execute(apis);
     }
 
-    @Override public void getMovie(String movieId, GetMovieCallback getMovieCallback) {
-
+    @Override
+    public void getMovie(String movieId, GetMovieCallback getMovieCallback) {
+        new MovieDetailAsyncTask(getMovieCallback).execute(movieId);
     }
 }

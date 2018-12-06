@@ -24,6 +24,6 @@ public class MoviesRepository implements MoviesDataSource {
 
     @Override
     public void getMovie(String movieId, GetMovieCallback getMovieCallback) {
-
+        mDataSource.getMovie(movieId, getMovieCallback);
     }
 }

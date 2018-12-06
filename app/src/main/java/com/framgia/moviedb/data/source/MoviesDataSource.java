@@ -2,6 +2,8 @@ package com.framgia.moviedb.data.source;
 
 import com.framgia.moviedb.data.model.GroupMovie;
 import com.framgia.moviedb.data.model.Movie;
+import com.framgia.moviedb.data.model.MovieDetail;
+
 import java.util.List;
 
 public interface MoviesDataSource {
@@ -14,12 +16,14 @@ public interface MoviesDataSource {
     }
 
     interface GetMovieCallback {
-        void onMovieLoaded(Movie movie);
+        void onMovieLoaded(MovieDetail movie);
 
-        void onDataNotAvailable();
+        void onDataNotAvailable(Exception e);
     }
 
     void getMovies(LoadMoviesCallback loadMoviesCallback);
 
     void getMovie(String movieId, GetMovieCallback getMovieCallback);
+
+
 }

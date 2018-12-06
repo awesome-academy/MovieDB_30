@@ -19,6 +19,9 @@ public class Movie implements Parcelable {
     private String mOverview;
     private List<String> mGenres;
 
+    public Movie() {
+    }
+
     public Movie(JSONObject jsonObject) throws JSONException {
         mTitle = jsonObject.getString(MovieJsonKey.TITLE);
         mVoteAverage = jsonObject.getLong(MovieJsonKey.VOTE_AVERAGE);

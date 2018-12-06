@@ -1,4 +1,4 @@
-package com.framgia.moviedb.screen.home;
+package com.framgia.moviedb.screen.movie_detail;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -16,26 +16,26 @@ import com.framgia.moviedb.utils.APIUtils;
 
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+public class RelatedMovieAdapter extends RecyclerView.Adapter<RelatedMovieAdapter.ViewHolder> {
     public static final int SIZE_IMAGE = 400;
-    private List<Movie> mMovies;
     private Context mContext;
-    private LayoutInflater mLayoutInflater;
+    private List<Movie> mMovies;
     private OnItemClickListener mListener;
 
-    public MovieAdapter(Context context, OnItemClickListener listener) {
+    public RelatedMovieAdapter(Context context, List<Movie> movies, OnItemClickListener listener) {
         mContext = context;
+        if (movies != null) {
+            mMovies = movies;
+        }
         mListener = listener;
     }
 
     @NonNull
     @Override
-    public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-        if (mLayoutInflater == null) {
-            mLayoutInflater = LayoutInflater.from(mContext);
-        }
-        View view = mLayoutInflater.inflate(R.layout.item_movie, viewGroup, false);
-        return new ViewHolder(mContext, view, mListener);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(mContext)
+                .inflate(R.layout.item_movie, viewGroup, false);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
@@ -49,32 +49,28 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        private ImageView mImageView;
         private Context mContext;
+        private ImageView mImageView;
         private OnItemClickListener mListener;
         private Movie mMovie;
 
-        ViewHolder(Context context, @NonNull View itemView, OnItemClickListener listener) {
-            super(itemView);
-            mContext = context;
+        public ViewHolder(View view, OnItemClickListener listener) {
+            super(view);
+            mContext = view.getContext();
             mListener = listener;
-            mImageView = itemView.findViewById(R.id.image_movie);
+            mImageView = view.findViewById(R.id.image_movie);
             mImageView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (mListener != null) {
-                mListener.onItemClick(mMovie);
-            }
+            mListener.onItemClick(mMovie);
         }
 
         private void bindData(Movie movie) {
-            if (movie == null) {
-                return;
+            if (movie != null) {
+                mMovie = movie;
             }
-            mMovie = movie;
             String url = APIUtils.PRE_POSTER_URL + movie.getPosterPath();
             GlideApp.with(mContext)
                     .load(url)
@@ -85,13 +81,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     .into(mImageView);
         }
 
-    }
-
-    void setMovieData(List<Movie> movies) {
-        if (movies != null) {
-            mMovies = movies;
-            notifyDataSetChanged();
-        }
     }
 
     interface OnItemClickListener {

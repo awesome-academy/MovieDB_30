@@ -22,6 +22,7 @@
         <activity android:name=".screen.search.SearchActivity" />
         <activity android:name=".screen.more.MoreMovieActivity" />
         <activity android:name=".screen.movie_detail.MovieDetailActivity" />
+        <activity android:name=".screen.movie_detail.TrailerActivity" />
     </application>
 
 </manifest>

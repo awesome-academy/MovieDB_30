@@ -40,7 +40,6 @@ public class ImagePagerAdapter extends PagerAdapter implements View.OnClickListe
         mMovie = mMovies.get(position);
         ImageView imageView = imageLayout.findViewById(R.id.image_pager);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setOnClickListener(this);
         String url = APIUtils.PRE_POSTER_URL + mMovies.get(position).getBackdropPath();
         Glide.with(mContext)
                 .load(url)
@@ -50,6 +49,7 @@ public class ImagePagerAdapter extends PagerAdapter implements View.OnClickListe
                         .override(SIZE_VIEW_FLIPPER))
                 .into(imageView);
         container.addView(imageLayout, 0);
+        imageView.setOnClickListener(this);
         return imageLayout;
     }
 

@@ -9,4 +9,7 @@
     <string name="text_related">RELATED</string>
     <string name="error_show_movie_detail">Fail to display some information!</string>
     <string name="error_play_trailer">Play video failed. Please check your connection.</string>
+    <string name="text_label_profile">PROFILE</string>
+    <string name="label_place_of_birth">Place of birth</string>
+    <string name="label_date_of_birth">Date of birth</string>
 </resources>

@@ -7,6 +7,10 @@ public class Crew extends Person {
     private String mDepartment;
     private String mJob;
 
+    public Crew() {
+        super();
+    }
+
     public Crew(JSONObject item) throws JSONException {
         super(item);
         mDepartment = item.getString(PersonJsonKey.DEPARTMENT);

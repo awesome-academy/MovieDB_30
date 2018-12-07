@@ -16,31 +16,38 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.framgia.moviedb.R;
+import com.framgia.moviedb.data.model.Cast;
+import com.framgia.moviedb.data.model.Crew;
 import com.framgia.moviedb.data.model.Movie;
 import com.framgia.moviedb.data.repository.MoviesRepository;
 import com.framgia.moviedb.data.source.remote.MovieRemoteDataSource;
+import com.framgia.moviedb.screen.PersonActivity;
 import com.framgia.moviedb.utils.APIUtils;
 
 import java.util.List;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener,
-        MovieDetailContract.View, RelatedMovieAdapter.OnItemClickListener {
+        MovieDetailContract.View, RelatedMovieAdapter.OnItemClickListener, ActorAdapter.OnActorClickListener {
     public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
     private static final int SIZE_VIEW_FLIPPER = 500;
     private Toolbar mToolbar;
     private String mTrailerKey;
-    private RelatedMovieAdapter mAdapter;
-    private RecyclerView mRecyclerView;
+    private RelatedMovieAdapter mMovieAdapter;
+    private ActorAdapter mActorAdapter;
+    private RecyclerView mMovieRecyclerView;
+    private RecyclerView mActorRecyclerView;
     private Movie mMovie;
     private MovieDetailPresenter mPresenter;
-    private ImageView mImageBackrop;
+    private ImageView mImageBackdrop;
     private ImageView mImagePlayIcon;
     private TextView mTextMovieTitle;
     private TextView mTextGenresName;
     private TextView mTextReleaseDate;
     private TextView mTextDirectorName;
-    private TextView mTextActorName;
-    private TextView mTextBio;
+    private TextView mTextOverview;
+    private TextView mTextRelatedLabel;
+    private int mDirectorId;
+
 
     public static Intent getIntent(Context context, Movie movie) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -68,15 +75,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.image_play_icon:
-                startActivity(TrailerActivity.getIntent(this, mTrailerKey));
-                break;
-        }
-    }
-
-    @Override
     public void showInfoError(Exception e) {
         e.printStackTrace();
         Toast.makeText(this, getString(R.string.error_show_movie_detail), Toast.LENGTH_SHORT).show();
@@ -88,20 +86,23 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void showDirectorName(String directorName) {
-        mTextDirectorName.setText(directorName);
+    public void showDirectorName(Crew director) {
+        mTextDirectorName.setText(director.getName());
+        mDirectorId = director.getId();
     }
 
     @Override
-    public void showActorsName(String actorsName) {
-        mTextActorName.setText(actorsName);
+    public void showActorsName(List<Cast> casts) {
+        mActorAdapter = new ActorAdapter(this, casts.subList(0, 2), this);
+        mActorRecyclerView.setAdapter(mActorAdapter);
+        mActorAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showRelatedMovies(List<Movie> movies) {
-        mAdapter = new RelatedMovieAdapter(this, movies, this);
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+        mMovieAdapter = new RelatedMovieAdapter(this, movies, this);
+        mMovieRecyclerView.setAdapter(mMovieAdapter);
+        mMovieAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -112,7 +113,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void showTrailer(String trailerKey) {
         mTrailerKey = trailerKey;
-        mImageBackrop.setScaleType(ImageView.ScaleType.FIT_XY);
+        mImageBackdrop.setScaleType(ImageView.ScaleType.FIT_XY);
         String url = APIUtils.PRE_POSTER_URL + mMovie.getBackdropPath();
         Glide.with(this)
                 .load(url)
@@ -120,7 +121,22 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                         .placeholder(R.drawable.ic_loading_icon)
                         .error(R.drawable.ic_error_icon)
                         .override(SIZE_VIEW_FLIPPER))
-                .into(mImageBackrop);
+                .into(mImageBackdrop);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.image_play_icon:
+                startActivity(TrailerActivity.getIntent(this, mTrailerKey));
+                break;
+            case R.id.text_label_related:
+
+                break;
+            case R.id.text_name_director:
+                startActivity(PersonActivity.getIntent(this, mDirectorId));
+                break;
+        }
     }
 
     @Override
@@ -128,12 +144,17 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         startActivity(MovieDetailActivity.getIntent(this, movie));
     }
 
+    @Override
+    public void onActorClick(int personId) {
+        startActivity(PersonActivity.getIntent(this, personId));
+    }
+
     private void displayInfo() {
         mMovie = new Movie();
         Intent intent = getIntent();
         mMovie = intent.getExtras().getParcelable(EXTRA_MOVIE);
         mTextMovieTitle.setText(mMovie.getTitle());
-        mTextBio.setText(mMovie.getOverview());
+        mTextOverview.setText(mMovie.getOverview());
     }
 
     private void initToolbar() {
@@ -146,19 +167,25 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
-        mRecyclerView = findViewById(R.id.recycle_related);
-        mRecyclerView.setLayoutManager(
+        mMovieRecyclerView = findViewById(R.id.recycle_related);
+        mMovieRecyclerView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerView.setHasFixedSize(true);
+        mMovieRecyclerView.setHasFixedSize(true);
+        mActorRecyclerView = findViewById(R.id.recycle_actors);
+        mActorRecyclerView.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mActorRecyclerView.setHasFixedSize(true);
         mTextGenresName = findViewById(R.id.text_genres);
         mTextReleaseDate = findViewById(R.id.text_year);
-        mTextBio = findViewById(R.id.text_overview);
+        mTextOverview = findViewById(R.id.text_overview);
         mTextMovieTitle = findViewById(R.id.text_movie_title);
-        mTextActorName = findViewById(R.id.text_name_actors);
         mTextDirectorName = findViewById(R.id.text_name_director);
-        mImageBackrop = findViewById(R.id.image_trailer);
+        mTextDirectorName.setOnClickListener(this);
+        mImageBackdrop = findViewById(R.id.image_trailer);
         mImagePlayIcon = findViewById(R.id.image_play_icon);
         mImagePlayIcon.setOnClickListener(this);
+        mTextRelatedLabel = findViewById(R.id.text_label_related);
+        mTextRelatedLabel.setOnClickListener(this);
     }
 
     private void getData() {

@@ -1,5 +1,7 @@
 package com.framgia.moviedb.screen.movie_detail;
 
+import com.framgia.moviedb.data.model.Cast;
+import com.framgia.moviedb.data.model.Crew;
 import com.framgia.moviedb.data.model.Movie;
 import com.framgia.moviedb.data.model.MovieDetail;
 
@@ -12,9 +14,9 @@ public interface MovieDetailContract {
 
         void showReleaseDate(String releaseDate);
 
-        void showDirectorName(String directorName);
+        void showDirectorName(Crew crew);
 
-        void showActorsName(String actorsName);
+        void showActorsName(List<Cast> casts);
 
         void showRelatedMovies(List<Movie> movies);
 

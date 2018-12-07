@@ -11,7 +11,6 @@ public class PersonRepository implements PersonDataSource {
         mDataSource = dataSource;
     }
 
-
     public static PersonRepository getInstance(PersonDataSource personDataSource) {
         if (sInstance == null) {
             sInstance = new PersonRepository(personDataSource);

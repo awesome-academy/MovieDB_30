@@ -12,4 +12,5 @@
     <string name="text_label_profile">PROFILE</string>
     <string name="label_place_of_birth">Place of birth</string>
     <string name="label_date_of_birth">Date of birth</string>
+    <string name="text_no_result">No result!</string>
 </resources>

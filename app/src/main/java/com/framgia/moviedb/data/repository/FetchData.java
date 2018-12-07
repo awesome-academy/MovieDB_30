@@ -25,9 +25,6 @@ public class FetchData {
         while ((line = reader.readLine()) != null) {
             builder.append(line);
         }
-        if (builder.length() == 0) {
-            return null;
-        }
         jsonString = builder.toString();
         if (urlConnection != null) {
             urlConnection.disconnect();

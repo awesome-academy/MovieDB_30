@@ -82,7 +82,7 @@ public class MovieDetailAsyncTask extends AsyncTask<String, Void, MovieDetail> {
     }
 
     private List<Genre> getGenre(String movieId) throws Exception {
-        String url = APIUtils.getMovieByIdUrl(movieId);
+        String url = APIUtils.getMovieUrlById(movieId);
         String json = mFetchData.getJsonData(url);
         List<Genre> genres = new ArrayList<>();
         JSONObject jsonObject = new JSONObject(json);
@@ -98,7 +98,7 @@ public class MovieDetailAsyncTask extends AsyncTask<String, Void, MovieDetail> {
 
 
     private String getReleaseDate(String movieId) throws Exception {
-        String url = APIUtils.getMovieByIdUrl(movieId);
+        String url = APIUtils.getMovieUrlById(movieId);
         String json = mFetchData.getJsonData(url);
         String releaseDate = null;
         JSONObject jsonObject = new JSONObject(json);

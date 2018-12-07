@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.PersonActivity">
+    tools:context=".screen.person.PersonActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:id="@+id/image_profile"
             android:layout_width="@dimen/width_image_profile"
             android:layout_height="@dimen/high_image_profile"
-            android:layout_marginStart="@dimen/margin_all_content"
+            android:layout_marginStart="@dimen/margin_top_panel"
             android:layout_marginTop="@dimen/margin_top_panel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_all_content"
-            android:layout_marginTop="@dimen/margin_all_content"
+            android:layout_marginTop="@dimen/margin_top_panel"
             android:text="@string/text_related"
             android:textColor="@color/black_all_text"
             android:textSize="@dimen/size_group_label_16dp"
@@ -104,13 +104,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_all_content"
-            android:layout_marginTop="@dimen/margin_all_content"
+            android:layout_marginTop="@dimen/margin_top_panel"
             android:layout_marginEnd="@dimen/margin_all_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_profile" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recycle_related_by_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_all_content"
@@ -119,12 +119,12 @@
             app:layout_constraintTop_toBottomOf="@+id/text_related_label" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/image_more_icon"
             android:layout_width="@dimen/width_more_icon"
             android:layout_height="@dimen/high_more_icon"
             android:layout_marginStart="@dimen/margin_start_more_icon"
             android:layout_marginBottom="@dimen/margin_bottom_more_icon"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintBottom_toTopOf="@+id/recycle_related_by_person"
             app:layout_constraintStart_toEndOf="@+id/text_related_label"
             app:srcCompat="@drawable/ic_more_icon" />
 

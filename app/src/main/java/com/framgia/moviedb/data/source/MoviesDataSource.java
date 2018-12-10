@@ -27,9 +27,19 @@ public interface MoviesDataSource {
         void onDataNotAvailable(Exception e);
     }
 
+    interface SearchMovieCallback {
+        void onSearchSuccess(List<Movie> movies);
+
+        void onNoResult();
+
+        void onSearchError(Exception e);
+    }
+
     void getMovies(LoadMoviesCallback loadMoviesCallback);
 
     void getMovieByPersonId(int id, int page, GetMovieByPersonIdCallback callback);
 
     void getMovie(String movieId, GetMovieCallback getMovieCallback);
+
+    void searchMovie(String query, SearchMovieCallback searchMovieCallback);
 }

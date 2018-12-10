@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetailAsyncTask extends AsyncTask<String, Void, MovieDetail> {
+    public static final int MAX_GENRE_QUANTITY = 3;
     private MoviesDataSource.GetMovieCallback mCallback;
     private Exception mException;
     private FetchData mFetchData;
@@ -89,6 +90,7 @@ public class MovieDetailAsyncTask extends AsyncTask<String, Void, MovieDetail> {
         if (jsonObject != null) {
             JSONArray jsonArray = jsonObject.getJSONArray(Genre.GenreJsonKey.JSON_KEY_GENRES);
             for (int i = 0; i < jsonArray.length(); i++) {
+                if (i == MAX_GENRE_QUANTITY) break;
                 JSONObject item = jsonArray.getJSONObject(i);
                 genres.add(new Genre(item));
             }

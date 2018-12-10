@@ -3,6 +3,7 @@ package com.framgia.moviedb.data.source.remote;
 import com.framgia.moviedb.data.repository.MovieDetailAsyncTask;
 import com.framgia.moviedb.data.repository.MoviesContentAsyncTask;
 import com.framgia.moviedb.data.repository.RelatedMovieByPersonAsyncTask;
+import com.framgia.moviedb.data.repository.SearchMovieAsyncTask;
 import com.framgia.moviedb.data.source.MoviesDataSource;
 import com.framgia.moviedb.utils.APIUtils;
 import com.framgia.moviedb.utils.Constants;
@@ -38,5 +39,10 @@ public class MovieRemoteDataSource implements MoviesDataSource {
     @Override
     public void getMovie(String movieId, GetMovieCallback getMovieCallback) {
         new MovieDetailAsyncTask(getMovieCallback).execute(movieId);
+    }
+
+    @Override
+    public void searchMovie(String query, SearchMovieCallback searchMovieCallback) {
+        new SearchMovieAsyncTask(searchMovieCallback).execute(query);
     }
 }

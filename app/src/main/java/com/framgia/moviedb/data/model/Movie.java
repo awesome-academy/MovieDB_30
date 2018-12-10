@@ -12,9 +12,10 @@ import java.util.List;
 
 public class Movie implements Parcelable {
     private String mTitle;
-    private long mVoteAverage;
+    private double mVoteAverage;
     private String mId;
     private String mPosterPath;
+    private String mReleaseDate;
     private String mBackdropPath;
     private String mOverview;
     private List<String> mGenres;
@@ -29,6 +30,7 @@ public class Movie implements Parcelable {
         mPosterPath = jsonObject.getString(MovieJsonKey.POSTER_PATH);
         mBackdropPath = jsonObject.getString(MovieJsonKey.BACKDROP_PATH);
         mOverview = jsonObject.getString(MovieJsonKey.OVERVIEW);
+        mReleaseDate = jsonObject.getString(MovieJsonKey.RELEASE_DATE);
         JSONArray genres = jsonObject.getJSONArray(MovieJsonKey.GENRES);
         if (genres != null) {
             mGenres = new ArrayList<>();
@@ -43,6 +45,7 @@ public class Movie implements Parcelable {
         mVoteAverage = in.readLong();
         mId = in.readString();
         mPosterPath = in.readString();
+        mReleaseDate = in.readString();
         mBackdropPath = in.readString();
         mOverview = in.readString();
         mGenres = in.createStringArrayList();
@@ -60,6 +63,14 @@ public class Movie implements Parcelable {
         }
     };
 
+    public String getReleaseDate() {
+        return mReleaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        mReleaseDate = releaseDate;
+    }
+
     public String getTitle() {
         return mTitle;
     }
@@ -68,11 +79,11 @@ public class Movie implements Parcelable {
         mTitle = title;
     }
 
-    public long getVoteAverage() {
+    public double getVoteAverage() {
         return mVoteAverage;
     }
 
-    public void setVoteAverage(long voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         mVoteAverage = voteAverage;
     }
 
@@ -124,9 +135,10 @@ public class Movie implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mTitle);
-        dest.writeLong(mVoteAverage);
+        dest.writeDouble(mVoteAverage);
         dest.writeString(mId);
         dest.writeString(mPosterPath);
+        dest.writeString(mReleaseDate);
         dest.writeString(mBackdropPath);
         dest.writeString(mOverview);
         dest.writeStringList(mGenres);
@@ -140,5 +152,6 @@ public class Movie implements Parcelable {
         public static final String POSTER_PATH = "poster_path";
         public static final String BACKDROP_PATH = "backdrop_path";
         public static final String VOTE_AVERAGE = "vote_average";
+        public static final String RELEASE_DATE = "release_date";
     }
 }

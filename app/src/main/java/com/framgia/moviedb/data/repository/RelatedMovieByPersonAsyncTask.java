@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.framgia.moviedb.data.model.Movie;
 import com.framgia.moviedb.data.source.MoviesDataSource;
-import com.framgia.moviedb.data.source.PersonDataSource;
 import com.framgia.moviedb.utils.APIUtils;
 import com.framgia.moviedb.utils.Constants;
 

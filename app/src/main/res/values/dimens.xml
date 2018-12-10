@@ -26,4 +26,7 @@
     <dimen name="margin_left_panel">16dp</dimen>
     <dimen name="width_image_profile">120dp</dimen>
     <dimen name="high_image_profile">180dp</dimen>
+    <dimen name="width_search_backdrop">160dp</dimen>
+    <dimen name="high_search_backdrop">100dp</dimen>
+    <dimen name="margin_top_no_result">25dp</dimen>
 </resources>

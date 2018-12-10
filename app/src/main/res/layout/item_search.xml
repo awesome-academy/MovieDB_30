@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_search_backdrop"
+        android:layout_width="@dimen/width_search_backdrop"
+        android:layout_height="@dimen/high_search_backdrop"
+        android:layout_marginStart="@dimen/margin_all_content"
+        android:layout_marginTop="@dimen/margin_all_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_all_text"
+        android:layout_marginStart="@dimen/margin_left_panel"
+        android:layout_marginTop="@dimen/margin_top_panel"
+        android:textSize="@dimen/size_group_label_16dp"
+        app:layout_constraintStart_toEndOf="@+id/image_search_backdrop"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_vote_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_left_panel"
+        android:layout_marginTop="@dimen/margin_all_content"
+        app:layout_constraintStart_toEndOf="@+id/image_search_backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/text_name" />
+
+    <TextView
+        android:id="@+id/text_release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_left_panel"
+        android:layout_marginTop="@dimen/margin_all_content"
+        app:layout_constraintStart_toEndOf="@+id/image_search_backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/text_vote_average" />
+
+</android.support.constraint.ConstraintLayout>

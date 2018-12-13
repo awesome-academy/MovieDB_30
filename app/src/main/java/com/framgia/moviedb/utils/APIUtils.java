@@ -11,8 +11,10 @@ public class APIUtils {
     public static final String PRE_BACKDROP_URL = "https://image.tmdb.org/t/p/w500/";
     public static final String PRE_GET_MOVIES_URL = "https://api.themoviedb.org/3/movie/";
     public static final String PRE_DISCOVER_MOVIES_URL = "http://api.themoviedb.org/3/discover/movie/";
+    public static final String PRE_SEARCH_MOVIES_URL = "http://api.themoviedb.org/3/search/movie/";
     public static final String PRE_GET_PERSON_URL = "https://api.themoviedb.org/3/person/";
     public static final String LANGUAGE_CONFIGURATION = "&language=en-US";
+    public static final String QUERY_CONFIGURATION = "&query=";
     public static final String SORT_CONFIGURATION = "&sort_by=popularity.desc";
     public static final String API_KEY_CONFIGURATION = "?api_key=";
     public static final String PAGE_NUMBER_CONFIGURATION = "&page=";
@@ -94,6 +96,19 @@ public class APIUtils {
                 .append(API_KEY_CONFIGURATION)
                 .append(API_KEY)
                 .append(LANGUAGE_CONFIGURATION);
+        return api.toString();
+    }
+
+    public static String searchMovieUrl(String query, int page) {
+        StringBuilder api = new StringBuilder();
+        api.append(PRE_SEARCH_MOVIES_URL)
+                .append(API_KEY_CONFIGURATION)
+                .append(API_KEY)
+                .append(LANGUAGE_CONFIGURATION)
+                .append(QUERY_CONFIGURATION)
+                .append(query)
+                .append(PAGE_NUMBER_CONFIGURATION)
+                .append(page);
         return api.toString();
     }
 

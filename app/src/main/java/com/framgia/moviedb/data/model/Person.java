@@ -28,6 +28,14 @@ public class Person {
         mPlaceOfBirth = item.optString(PersonJsonKey.PLACE_OF_BIRTH, EMPTY_STRING);
     }
 
+    public String getBiography() {
+        return mBiography;
+    }
+
+    public void setBiography(String biography) {
+        mBiography = biography;
+    }
+
     public String getBirthday() {
         return mBirthday;
     }
